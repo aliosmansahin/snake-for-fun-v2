@@ -6,6 +6,10 @@
 
 #include "GameStateBase.h"
 
+#include "Square.h"
+
+#include "Shader.h"
+
 class Game {
 public:
 	Game();
@@ -20,4 +24,8 @@ public:
 private:
 	std::shared_ptr<GameStateBase> currentGameState;
 	std::shared_ptr<Snake> snake;
+
+	std::shared_ptr<Square> square;
+
+	std::shared_ptr<Shader> shader;
 };

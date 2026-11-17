@@ -4,6 +4,8 @@
 
 Game::Game()
 {
+	shader = std::make_shared<Shader>();
+	square = std::make_shared<Square>();
 	currentGameState = std::make_shared<GameOverState>();
 	snake = std::make_shared<Snake>();
 }
@@ -32,5 +34,6 @@ void Game::Update()
 
 void Game::Draw()
 {
-	
+	shader->Use();
+	square->Draw();
 }

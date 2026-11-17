@@ -20,3 +20,10 @@ target_include_directories(${PROJECT_NAME} PRIVATE "thirdparty/include")
 target_link_directories(${PROJECT_NAME} PRIVATE "thirdparty/lib")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE "GLFW/glfw3")
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/shader
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/shader
+    COMMENT "Shader klasörü çıkış dizinine kopyalanıyor..."
+)
