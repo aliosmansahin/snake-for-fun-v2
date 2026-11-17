@@ -1,7 +1,10 @@
 #include "Game.h"
 
+#include "GameOverState.h"
+
 Game::Game()
 {
+	currentGameState = std::make_shared<GameOverState>();
 }
 
 Game::~Game()
@@ -22,7 +25,11 @@ void Game::Run(const Window& window)
 }
 
 void Game::Update()
-{}
+{
+	currentGameState->Update({});
+}
 
 void Game::Draw()
-{}
+{
+	
+}

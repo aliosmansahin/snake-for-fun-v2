@@ -1,6 +1,10 @@
 #pragma once
 
+#include <memory>
+
 #include "Window.h"
+
+#include "GameStateBase.h"
 
 class Game {
 public:
@@ -14,5 +18,5 @@ public:
 	void Draw();
 
 private:
-	
+	std::shared_ptr<GameStateBase> currentGameState;
 };
