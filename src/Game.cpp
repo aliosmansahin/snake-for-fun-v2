@@ -5,6 +5,7 @@
 Game::Game()
 {
 	currentGameState = std::make_shared<GameOverState>();
+	snake = std::make_shared<Snake>();
 }
 
 Game::~Game()
@@ -26,7 +27,7 @@ void Game::Run(const Window& window)
 
 void Game::Update()
 {
-	currentGameState->Update({});
+	currentGameState->Update({snake});
 }
 
 void Game::Draw()

@@ -19,4 +19,5 @@ public:
 
 private:
 	std::shared_ptr<GameStateBase> currentGameState;
+	std::shared_ptr<Snake> snake;
 };
