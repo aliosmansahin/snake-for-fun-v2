@@ -1,7 +1,7 @@
-#include <iostream>
+#include "Window.h"
 
 int main() {
-	std::cout << "Hello world" << std::endl;
+	Window window;
 
 	return 0;
 }
