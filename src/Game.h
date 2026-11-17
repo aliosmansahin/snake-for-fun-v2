@@ -21,6 +21,8 @@ public:
 	void Update();
 	void Draw();
 
+	void UpdateProjectionMatrix();
+
 private:
 	std::shared_ptr<GameStateBase> currentGameState;
 	std::shared_ptr<Snake> snake;

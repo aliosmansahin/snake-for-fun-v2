@@ -6,6 +6,8 @@ public:
 	~Shader();
 
 	void Use();
+
+	unsigned int GetID() const { return shaderProgram; }
 private:
 	unsigned int vertexShader, fragmentShader, shaderProgram;
 };
