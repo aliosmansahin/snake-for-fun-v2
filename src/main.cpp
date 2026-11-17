@@ -1,8 +1,11 @@
 #include "Window.h"
+#include "Game.h"
 
 int main() {
 	Window window;
-	window.Run();
+	Game game;
+
+	game.Run(window);
 
 	return 0;
 }

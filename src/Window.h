@@ -9,8 +9,12 @@ public:
 	Window();
 	~Window();
 
-public:
-	void Run();
+	void Update() const {
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+
+	bool ShouldClose() const { return glfwWindowShouldClose(window); }
 
 private:
 	GLFWwindow* window;
