@@ -16,6 +16,8 @@ public:
 
 	bool ShouldClose() const { return glfwWindowShouldClose(window); }
 
+	bool CheckKey(int key) const { return glfwGetKey(window, key) == GLFW_PRESS; }
+
 private:
 	GLFWwindow* window;
 };

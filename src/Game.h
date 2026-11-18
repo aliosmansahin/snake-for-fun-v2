@@ -19,7 +19,7 @@ public:
 	void Run(const Window& window);
 
 public:
-	void Update();
+	void Update(const Window& window);
 	void Draw();
 
 public:

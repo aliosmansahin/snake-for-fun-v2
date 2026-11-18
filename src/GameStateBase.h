@@ -2,6 +2,8 @@
 
 #include "Snake.h"
 
+#include "Window.h"
+
 #include <memory>
 
 enum class GameState {
@@ -15,6 +17,6 @@ struct GameObjects {
 
 class GameStateBase {
 public:
-	virtual void Update(GameObjects gameObjects) = 0;
+	virtual void Update(const Window& window, GameObjects gameObjects) = 0;
 	virtual GameState GetGameState() = 0;
 };

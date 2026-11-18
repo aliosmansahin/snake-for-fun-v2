@@ -1,6 +1,10 @@
 #include "GameOverState.h"
 
-void GameOverState::Update(GameObjects gameObjects)
+#include "Event.h"
+
+void GameOverState::Update(const Window& window, GameObjects gameObjects)
 {
-	gameObjects.snake;
+	if (window.CheckKey(GLFW_KEY_SPACE)) {
+		Event::StartGameEvent();
+	}
 }

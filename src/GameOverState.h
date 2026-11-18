@@ -4,6 +4,6 @@
 
 class GameOverState : public GameStateBase {
 public:
-	void Update(GameObjects gameObjects) override final;
+	void Update(const Window& window, GameObjects gameObjects) override final;
 	GameState GetGameState() override { return GameState::GAME_OVER; }
 };

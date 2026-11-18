@@ -1,16 +1,23 @@
 #include "Game.h"
 
 #include "GameOverState.h"
+#include "PlayingState.h"
+
+#include "Event.h"
 
 Game::Game()
 {
 	shader = std::make_shared<Shader>();
 	currentGameState = std::make_shared<GameOverState>();
-	snake = std::make_shared<Snake>();
 	squareCount = 10;
 	squareSize = 640 / squareCount;
+	snake = std::make_shared<Snake>(squareCount);
 
 	square = std::make_shared<Square>(squareSize);
+
+	Event::SetStartGameEvent([&]() {
+		currentGameState = std::make_shared<PlayingState>();
+		});
 }
 
 Game::~Game()
@@ -23,16 +30,16 @@ void Game::Run(const Window& window)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		/* Update and draw */
-		Update();
+		Update(window);
 		Draw();
 
 		window.Update();
 	}
 }
 
-void Game::Update()
+void Game::Update(const Window& window)
 {
-	currentGameState->Update({snake});
+	currentGameState->Update(window, {snake});
 }
 
 void Game::Draw()
@@ -42,6 +49,8 @@ void Game::Draw()
 	UpdateProjectionMatrix();
 
 	DrawTiles();
+
+	snake->Draw(square, shader);
 }
 
 void Game::UpdateProjectionMatrix()
