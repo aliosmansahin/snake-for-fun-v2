@@ -36,6 +36,8 @@ void Snake::Update(const Window& window)
 	
 	direction = directionBuffer;
 
+	Coord oldHead = head;
+
 	switch (direction) {
 	case Direction::LEFT:
 		head.x--;
@@ -65,11 +67,11 @@ void Snake::Update(const Window& window)
 		return;
 	}
 
-	tailForCheck.insert(std::to_string(head.x) + "-" + std::to_string(head.y));
-	tail.push_back(head);
+	tailForCheck.insert(std::to_string(oldHead.x) + "-" + std::to_string(oldHead.y));
+	tail.push_back(oldHead);
 
 	if (tail.size() > maxTail) {
-		Coord last = *tail.begin();
+		Coord last = tail[0];
 		tailForCheck.erase(std::to_string(last.x) + "-" + std::to_string(last.y));
 		tail.erase(tail.begin());
 	}
@@ -77,9 +79,13 @@ void Snake::Update(const Window& window)
 
 void Snake::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader)
 {
-	for (const auto& sq : tail) {
+	for (int i = 0; i < tail.size(); ++i) {
+		auto sq = tail[i];
 		square->Draw(sq.x, sq.y, 0.1f, 0.1f, 0.1f, shader);
 	}
+
+	/* Head */
+	square->Draw(head.x, head.y, 0.2f, 0.2f, 0.2f, shader);
 }
 
 void Snake::Reset()
@@ -90,5 +96,4 @@ void Snake::Reset()
 	directionBuffer = Direction::RIGHT;
 	tail.clear();
 	tailForCheck.clear();
-	tail.push_back(head);
 }
