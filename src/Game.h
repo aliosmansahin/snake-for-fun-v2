@@ -18,10 +18,15 @@ public:
 public:
 	void Run(const Window& window);
 
+public:
 	void Update();
 	void Draw();
 
+public:
 	void UpdateProjectionMatrix();
+
+public:
+	void DrawTiles();
 
 private:
 	std::shared_ptr<GameStateBase> currentGameState;

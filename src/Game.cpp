@@ -41,7 +41,7 @@ void Game::Draw()
 
 	UpdateProjectionMatrix();
 
-	square->Draw(0, 0, 0.4f, 0.1f, 0.6f, shader);
+	DrawTiles();
 }
 
 void Game::UpdateProjectionMatrix()
@@ -61,4 +61,26 @@ void Game::UpdateProjectionMatrix()
 	};
 
 	shader->SetProjectionMatrix(proj);
+}
+
+void Game::DrawTiles()
+{
+	for (int y = 0; y < squareCount; ++y) {
+		for (int x = 0; x < squareCount; ++x) {
+			float r, g, b;
+
+			if ((x + y) % 2 == 0) {
+				r = 0.0f;
+				g = 0.8f;
+				b = 0.2f;
+			}
+			else {
+				r = 0.0f;
+				g = 0.6f;
+				b = 0.4f;
+			}
+
+			square->Draw(x, y, r, g, b, shader);
+		}
+	}
 }
