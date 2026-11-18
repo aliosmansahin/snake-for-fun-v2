@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Snake.h"
+#include "Apple.h"
 
 #include "Window.h"
 
@@ -13,6 +14,7 @@ enum class GameState {
 
 struct GameObjects {
 	std::shared_ptr<Snake> snake;
+	std::shared_ptr<Apple> apple;
 };
 
 class GameStateBase {

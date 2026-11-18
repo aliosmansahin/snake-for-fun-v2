@@ -12,6 +12,7 @@ Game::Game()
 	squareCount = 20;
 	squareSize = 640 / squareCount;
 	snake = std::make_shared<Snake>(squareCount);
+	apple = std::make_shared<Apple>(5, 5);
 
 	square = std::make_shared<Square>(squareSize);
 
@@ -21,6 +22,11 @@ Game::Game()
 
 	Event::SetGameOverEvent([&]() {
 		currentGameState = std::make_shared<GameOverState>();
+		});
+
+	Event::SetAppleBiteEvent([&]() {
+		apple = std::make_shared<Apple>(squareCount);
+		snake->AddTail();
 		});
 }
 
@@ -43,7 +49,7 @@ void Game::Run(const Window& window)
 
 void Game::Update(const Window& window)
 {
-	currentGameState->Update(window, {snake});
+	currentGameState->Update(window, {snake, apple});
 }
 
 void Game::Draw()
@@ -55,6 +61,7 @@ void Game::Draw()
 	DrawTiles();
 
 	snake->Draw(square, shader);
+	apple->Draw(square, shader);
 }
 
 void Game::UpdateProjectionMatrix()

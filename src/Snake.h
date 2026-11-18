@@ -30,6 +30,11 @@ public:
 	void Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader);
 
 	void Reset();
+	void AddTail() { maxTail++; }
+
+public:
+	int GetX() { return head.x; }
+	int GetY() { return head.y; }
 
 private:
 	std::vector<Coord> tail; // Head is included

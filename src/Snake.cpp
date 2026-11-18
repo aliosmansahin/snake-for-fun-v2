@@ -84,7 +84,7 @@ void Snake::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Sha
 
 void Snake::Reset()
 {
-	head = { 5, 5 };
+	head = { 12, 12 };
 	maxTail = 5;
 	direction = Direction::RIGHT;
 	directionBuffer = Direction::RIGHT;

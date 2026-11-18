@@ -12,7 +12,12 @@ public:
 
 	static void SetGameOverEvent(std::function<void()> callback);
 
+	static void AppleBiteEvent();
+
+	static void SetAppleBiteEvent(std::function<void()> callback);
+
 public:
 	static std::function<void()> startGameCallback;
 	static std::function<void()> gameOverCallback;
+	static std::function<void()> appleBiteCallback;
 };
