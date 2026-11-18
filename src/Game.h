@@ -30,4 +30,8 @@ private:
 	std::shared_ptr<Square> square;
 
 	std::shared_ptr<Shader> shader;
+
+private:
+	int squareCount;
+	int squareSize;
 };

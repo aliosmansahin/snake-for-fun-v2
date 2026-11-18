@@ -5,9 +5,12 @@
 Game::Game()
 {
 	shader = std::make_shared<Shader>();
-	square = std::make_shared<Square>();
 	currentGameState = std::make_shared<GameOverState>();
 	snake = std::make_shared<Snake>();
+	squareCount = 10;
+	squareSize = 640 / squareCount;
+
+	square = std::make_shared<Square>(squareSize);
 }
 
 Game::~Game()
@@ -38,7 +41,7 @@ void Game::Draw()
 
 	UpdateProjectionMatrix();
 
-	square->Draw();
+	square->Draw(0, 0, shader);
 }
 
 void Game::UpdateProjectionMatrix()
@@ -46,11 +49,10 @@ void Game::UpdateProjectionMatrix()
 	float left = 0.0f;
 	float right = static_cast<float>(640);
 	float bottom = static_cast<float>(640); // TODO: Hardcoded, get it from the window
-	float top = 0.0f; // 2D ekran uzayı için üst 0, alt yükseklik yapılır
+	float top = 0.0f;
 	float zNear = -1.0f;
 	float zFar = 1.0f;
 
-	// Sıfırdan matris inşası (Column-major: Sütun sütun verilir)
 	float proj[4][4] = {
 		{2.0f / (right - left), 0.0f, 0.0f, 0.0f},
 		{0.0f, 2.0f / (top - bottom), 0.0f, 0.0f},
