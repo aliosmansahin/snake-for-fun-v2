@@ -19,4 +19,5 @@ class GameStateBase {
 public:
 	virtual void Update(const Window& window, GameObjects gameObjects) = 0;
 	virtual GameState GetGameState() = 0;
+	virtual ~GameStateBase() = default;
 };

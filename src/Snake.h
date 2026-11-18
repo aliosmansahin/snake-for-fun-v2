@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <memory>
+#include <unordered_set>
+#include <string>
 
 #include "Shader.h"
 #include "Square.h"
@@ -27,8 +29,11 @@ public:
 	void Update(const Window& window);
 	void Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader);
 
+	void Reset();
+
 private:
-	std::vector<Coord> tail;
+	std::vector<Coord> tail; // Head is included
+	std::unordered_set<std::string> tailForCheck; // Head is not included
 	Coord head;
 	Direction direction;
 	int maxTail;

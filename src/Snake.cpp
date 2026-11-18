@@ -1,13 +1,10 @@
 #include "Snake.h"
 
+#include "Event.h"
+
 Snake::Snake(int squareCount)
 {
 	/* Set initial values - reset snake */
-	head = { 5, 5 };
-	maxTail = 5;
-	direction = Direction::RIGHT;
-	directionBuffer = Direction::RIGHT;
-	tail.push_back(head);
 	this->squareCount = squareCount;
 	moveCooldown = 0.1;
 	moveLastTime = 0.0;
@@ -63,10 +60,19 @@ void Snake::Update(const Window& window)
 	else if (head.y > squareCount - 1)
 		head.y = 0;
 
+	if (tailForCheck.find(std::to_string(head.x) + "-" + std::to_string(head.y)) != tailForCheck.end()) {
+		Event::GameOverEvent();
+		return;
+	}
+
+	tailForCheck.insert(std::to_string(head.x) + "-" + std::to_string(head.y));
 	tail.push_back(head);
 
-	if (tail.size() > maxTail)
+	if (tail.size() > maxTail) {
+		Coord last = *tail.begin();
+		tailForCheck.erase(std::to_string(last.x) + "-" + std::to_string(last.y));
 		tail.erase(tail.begin());
+	}
 }
 
 void Snake::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader)
@@ -74,4 +80,15 @@ void Snake::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Sha
 	for (const auto& sq : tail) {
 		square->Draw(sq.x, sq.y, 0.1f, 0.1f, 0.1f, shader);
 	}
+}
+
+void Snake::Reset()
+{
+	head = { 5, 5 };
+	maxTail = 5;
+	direction = Direction::RIGHT;
+	directionBuffer = Direction::RIGHT;
+	tail.clear();
+	tailForCheck.clear();
+	tail.push_back(head);
 }

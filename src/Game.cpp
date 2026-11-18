@@ -18,6 +18,10 @@ Game::Game()
 	Event::SetStartGameEvent([&]() {
 		currentGameState = std::make_shared<PlayingState>();
 		});
+
+	Event::SetGameOverEvent([&]() {
+		currentGameState = std::make_shared<GameOverState>();
+		});
 }
 
 Game::~Game()
