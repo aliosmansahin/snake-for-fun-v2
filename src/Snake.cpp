@@ -5,9 +5,12 @@ Snake::Snake(int squareCount)
 	/* Set initial values - reset snake */
 	head = { 5, 5 };
 	maxTail = 5;
-	direction = Direction::LEFT;
+	direction = Direction::RIGHT;
+	directionBuffer = Direction::RIGHT;
 	tail.push_back(head);
 	this->squareCount = squareCount;
+	moveCooldown = 0.1;
+	moveLastTime = 0.0;
 }
 
 Snake::~Snake()
@@ -16,24 +19,32 @@ Snake::~Snake()
 void Snake::Update(const Window& window)
 {
 	if (window.CheckKey(GLFW_KEY_W) && direction != Direction::DOWN) {
-		direction = Direction::UP;
+		directionBuffer = Direction::UP;
 	}
 	else if (window.CheckKey(GLFW_KEY_S) && direction != Direction::UP) {
-		direction = Direction::DOWN;
+		directionBuffer = Direction::DOWN;
 	}
 	else if (window.CheckKey(GLFW_KEY_A) && direction != Direction::RIGHT) {
-		direction = Direction::LEFT;
+		directionBuffer = Direction::LEFT;
 	}
 	else if (window.CheckKey(GLFW_KEY_D) && direction != Direction::LEFT) {
-		direction = Direction::RIGHT;
+		directionBuffer = Direction::RIGHT;
 	}
+
+	double currentTime = window.GetTime();
+	if (currentTime < moveLastTime + moveCooldown) {
+		return;
+	}
+	moveLastTime = currentTime;
+	
+	direction = directionBuffer;
 
 	switch (direction) {
 	case Direction::LEFT:
-		head.x++;
+		head.x--;
 		break;
 	case Direction::RIGHT:
-		head.x--;
+		head.x++;
 		break;
 	case Direction::UP:
 		head.y--;

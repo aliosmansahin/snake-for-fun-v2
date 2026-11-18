@@ -18,6 +18,8 @@ public:
 
 	bool CheckKey(int key) const { return glfwGetKey(window, key) == GLFW_PRESS; }
 
+	double GetTime() const { return glfwGetTime(); }
+
 private:
 	GLFWwindow* window;
 };

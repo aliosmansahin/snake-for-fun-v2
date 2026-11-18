@@ -35,4 +35,11 @@ private:
 
 private:
 	int squareCount;
+
+private:
+	Direction directionBuffer;
+
+private:
+	double moveCooldown;
+	double moveLastTime;
 };

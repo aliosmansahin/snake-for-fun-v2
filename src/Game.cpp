@@ -9,7 +9,7 @@ Game::Game()
 {
 	shader = std::make_shared<Shader>();
 	currentGameState = std::make_shared<GameOverState>();
-	squareCount = 10;
+	squareCount = 20;
 	squareSize = 640 / squareCount;
 	snake = std::make_shared<Snake>(squareCount);
 
