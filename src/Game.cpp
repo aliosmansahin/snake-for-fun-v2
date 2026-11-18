@@ -41,7 +41,7 @@ void Game::Draw()
 
 	UpdateProjectionMatrix();
 
-	square->Draw(0, 0, shader);
+	square->Draw(0, 0, 0.4f, 0.1f, 0.6f, shader);
 }
 
 void Game::UpdateProjectionMatrix()

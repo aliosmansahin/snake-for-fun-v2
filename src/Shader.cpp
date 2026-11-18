@@ -51,6 +51,7 @@ Shader::Shader()
 
     uniformProjectionMatrixLocation = glGetUniformLocation(shaderProgram, "projection");
     uniformModelMatrixLocation = glGetUniformLocation(shaderProgram, "model");
+    uniformColorLocation = glGetUniformLocation(shaderProgram, "color");
 }
 
 Shader::~Shader()
@@ -71,4 +72,9 @@ void Shader::SetProjectionMatrix(float mat[4][4])
 void Shader::SetModelMatrix(float mat[4][4])
 {
     glUniformMatrix4fv(uniformModelMatrixLocation, 1, GL_FALSE, &mat[0][0]);
+}
+
+void Shader::SetColorVector(float r, float g, float b)
+{
+    glUniform3f(uniformColorLocation, r, g, b);
 }

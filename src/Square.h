@@ -12,10 +12,11 @@ public:
 	~Square();
 
 public:
-	void Draw(int x, int y, std::shared_ptr<Shader> shader);
+	void Draw(int x, int y, float r, float g, float b, std::shared_ptr<Shader> shader);
 
 private:
 	void UpdateTransformMatrix(int x, int y, const std::shared_ptr<Shader> shader);
+	void UpdateColor(float r, float g, float b, const std::shared_ptr<Shader> shader);
 
 private:
 	unsigned int VBO, VAO, EBO;

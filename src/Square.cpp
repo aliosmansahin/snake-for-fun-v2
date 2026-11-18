@@ -39,11 +39,16 @@ Square::~Square()
     glDeleteBuffers(1, &EBO);
 }
 
-void Square::Draw(int x, int y, std::shared_ptr<Shader> shader)
+/*
+    x, y: in-tile coordinates
+    r, g, b: 0 -> 1 colors
+*/
+void Square::Draw(int x, int y, float r, float g, float b, std::shared_ptr<Shader> shader)
 {
     glBindVertexArray(VAO);
 
     UpdateTransformMatrix(x, y, shader);
+    UpdateColor(r, g, b, shader);
     
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
@@ -58,4 +63,9 @@ void Square::UpdateTransformMatrix(int x, int y, std::shared_ptr<Shader> shader)
     };
 
     shader->SetModelMatrix(modelMatrix);
+}
+
+void Square::UpdateColor(float r, float g, float b, const std::shared_ptr<Shader> shader)
+{
+    shader->SetColorVector(r, g, b);
 }
