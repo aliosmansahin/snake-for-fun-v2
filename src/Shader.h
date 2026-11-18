@@ -1,5 +1,7 @@
 #pragma once
 
+typedef int GLint; // No need to include glad here, just redefine GLint
+
 class Shader {
 public:
 	Shader();
@@ -7,7 +9,13 @@ public:
 
 	void Use();
 
-	unsigned int GetID() const { return shaderProgram; }
+	void SetProjectionMatrix(float mat[4][4]);
+	void SetModelMatrix(float mat[4][4]);
+	
 private:
 	unsigned int vertexShader, fragmentShader, shaderProgram;
+
+private:
+	GLint uniformProjectionMatrixLocation;
+	GLint uniformModelMatrixLocation;
 };

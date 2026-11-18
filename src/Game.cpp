@@ -60,6 +60,5 @@ void Game::UpdateProjectionMatrix()
 		{-(right + left) / (right - left), -(top + bottom) / (top - bottom), -(zFar + zNear) / (zFar - zNear), 1.0f}
 	};
 
-	GLint projLoc = glGetUniformLocation(shader->GetID(), "projection");
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, &proj[0][0]);
+	shader->SetProjectionMatrix(proj);
 }

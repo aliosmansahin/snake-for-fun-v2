@@ -46,6 +46,11 @@ Shader::Shader()
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+
+    Use();
+
+    uniformProjectionMatrixLocation = glGetUniformLocation(shaderProgram, "projection");
+    uniformModelMatrixLocation = glGetUniformLocation(shaderProgram, "model");
 }
 
 Shader::~Shader()
@@ -56,4 +61,14 @@ Shader::~Shader()
 void Shader::Use()
 {
     glUseProgram(shaderProgram);
+}
+
+void Shader::SetProjectionMatrix(float mat[4][4])
+{
+    glUniformMatrix4fv(uniformProjectionMatrixLocation, 1, GL_FALSE, &mat[0][0]);
+}
+
+void Shader::SetModelMatrix(float mat[4][4])
+{
+    glUniformMatrix4fv(uniformModelMatrixLocation, 1, GL_FALSE, &mat[0][0]);
 }

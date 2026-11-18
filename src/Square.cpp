@@ -57,6 +57,5 @@ void Square::UpdateTransformMatrix(int x, int y, std::shared_ptr<Shader> shader)
            {static_cast<float>(x * squareSize), static_cast<float>(y * squareSize), 0.0f, 1.0f},
     };
 
-    GLint modelLoc = glGetUniformLocation(shader->GetID(), "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &modelMatrix[0][0]);
+    shader->SetModelMatrix(modelMatrix);
 }
