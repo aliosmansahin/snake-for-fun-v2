@@ -1,35 +1,38 @@
 #include "Event.h"
 
-std::function<void()> Event::startGameCallback = []() {};
-std::function<void()> Event::gameOverCallback = []() {};
-std::function<void()> Event::appleBiteCallback  = []() {};
+CallbackList Event::startGameCallback = {};
+CallbackList Event::gameOverCallback = {};
+CallbackList Event::appleBiteCallback  = {};
 
 void Event::StartGameEvent()
 {
-	startGameCallback();
+	for(const auto& callback : startGameCallback)
+		callback();
 }
 
 void Event::SetStartGameEvent(std::function<void()> callback)
 {
-	startGameCallback = callback;
+	startGameCallback.emplace_back(callback);
 }
 
 void Event::GameOverEvent()
 {
-	gameOverCallback();
+	for (const auto& callback : gameOverCallback)
+		callback();
 }
 
 void Event::SetGameOverEvent(std::function<void()> callback)
 {
-	gameOverCallback = callback;
+	gameOverCallback.emplace_back(callback);
 }
 
 void Event::AppleBiteEvent()
 {
-	appleBiteCallback();
+	for (const auto& callback : appleBiteCallback)
+		callback();
 }
 
 void Event::SetAppleBiteEvent(std::function<void()> callback)
 {
-	appleBiteCallback = callback;
+	appleBiteCallback.emplace_back(callback);
 }

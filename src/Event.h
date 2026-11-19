@@ -1,6 +1,9 @@
 #pragma once
 
 #include <functional>
+#include <unordered_set>
+
+typedef std::vector<std::function<void()>> CallbackList;
 
 class Event {
 public:
@@ -17,7 +20,7 @@ public:
 	static void SetAppleBiteEvent(std::function<void()> callback);
 
 public:
-	static std::function<void()> startGameCallback;
-	static std::function<void()> gameOverCallback;
-	static std::function<void()> appleBiteCallback;
+	static CallbackList startGameCallback;
+	static CallbackList gameOverCallback;
+	static CallbackList appleBiteCallback;
 };

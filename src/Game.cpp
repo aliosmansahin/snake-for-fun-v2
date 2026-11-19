@@ -33,7 +33,7 @@ Game::Game()
 Game::~Game()
 {}
 
-void Game::Run(const Window& window)
+void Game::Run(const Window& window, const ConsoleManager& console)
 {
 	while (!window.ShouldClose()) {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Window.h"
+#include "ConsoleManager.h"
 
 #include "GameStateBase.h"
 
@@ -16,7 +17,7 @@ public:
 	~Game();
 
 public:
-	void Run(const Window& window);
+	void Run(const Window& window, const ConsoleManager& console);
 
 public:
 	void Update(const Window& window);
