@@ -8,6 +8,12 @@ Snake::Snake(int squareCount)
 	this->squareCount = squareCount;
 	moveCooldown = 0.1;
 	moveLastTime = 0.0;
+
+	head = Coord(12, 12, 0, squareCount - 1, 0, squareCount - 1);
+	maxTail = 4;
+	direction = Direction::RIGHT;
+	directionBuffer = Direction::RIGHT;
+	tail.clear();
 }
 
 Snake::~Snake()
@@ -63,13 +69,4 @@ void Snake::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Sha
 
 	/* Head */
 	square->Draw(head, 0.2f, 0.2f, 0.2f, shader);
-}
-
-void Snake::Reset()
-{
-	head = Coord(12, 12, 0, squareCount - 1, 0, squareCount - 1);
-	maxTail = 4;
-	direction = Direction::RIGHT;
-	directionBuffer = Direction::RIGHT;
-	tail.clear();
 }

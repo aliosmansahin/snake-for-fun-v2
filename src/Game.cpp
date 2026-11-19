@@ -8,12 +8,8 @@
 Game::Game()
 {
 	shader = std::make_shared<Shader>();
-	currentGameState = std::make_shared<GameOverState>();
 	squareCount = 20;
 	squareSize = 640 / squareCount;
-	snake = std::make_shared<Snake>(squareCount);
-	apple = std::make_shared<Apple>(Coord{ 5, 5 });
-
 	square = std::make_shared<Square>(squareSize);
 
 	Event::SetStartGameEvent([&]() {
@@ -22,12 +18,16 @@ Game::Game()
 
 	Event::SetGameOverEvent([&]() {
 		currentGameState = std::make_shared<GameOverState>();
+		snake = std::make_shared<Snake>(squareCount);
+		apple = std::make_shared<Apple>(Coord{ 5, 5 });
 		});
 
 	Event::SetAppleBiteEvent([&]() {
 		apple = std::make_shared<Apple>(squareCount, snake->GetTail());
 		snake->AddTail();
 		});
+
+	Event::GameOverEvent(); // Start with gameover
 }
 
 Game::~Game()

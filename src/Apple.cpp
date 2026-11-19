@@ -15,15 +15,10 @@ Apple::Apple(int squareCount, const std::unordered_set<Coord>& notAllowed)
 
 Apple::Apple(Coord coord)
 {
-	Reset(coord);
+	this->coord = coord;
 }
 
 void Apple::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader)
 {
 	square->Draw(coord, 0.7, 0.1, 0.1, shader);
-}
-
-void Apple::Reset(Coord coord)
-{
-	this->coord = coord;
 }

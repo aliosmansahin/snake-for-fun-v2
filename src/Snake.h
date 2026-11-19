@@ -3,7 +3,6 @@
 #include <deque>
 #include <memory>
 #include <unordered_set>
-#include <string>
 
 #include "Shader.h"
 #include "Square.h"
@@ -20,13 +19,11 @@ public:
 	void Update(const Window& window);
 	void Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader);
 
-	void Reset();
 	void AddTail() { maxTail++; }
 
 public:
 	const Coord& GetHead() const { return head; }
 	const std::unordered_set<Coord>& GetTail() const { return tailForCheck; }
-
 
 private:
 	std::deque<Coord> tail; // For push front, pop back, head is not included

@@ -17,8 +17,6 @@ public:
 public:
 	void Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader);
 
-	void Reset(Coord coord);
-
 public:
 	const Coord& GetCoord() const { return coord; }
 
