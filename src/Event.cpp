@@ -6,6 +6,7 @@ CallbackList<> Event::appleBiteCallback   = {};
 CallbackList<int> Event::addScoreCallback = {};
 CallbackList<int> Event::updateMapSizeCallback = {};
 CallbackList<int> Event::updateSnakeSpeedCallback = {};
+CallbackList<int, int> Event::setOptionsCallback = {};
 
 void Event::StartGameEvent()
 {
@@ -73,4 +74,15 @@ void Event::UpdateSnakeSpeedEvent(int newSnakeSpeed)
 void Event::SetUpdateSnakeSpeedEvent(std::function<void(int)> callback)
 {
 	updateSnakeSpeedCallback.emplace_back(callback);
+}
+
+void Event::SetOptionsEvent(int mapSize, int snakeSpeed)
+{
+	for (const auto& callback : setOptionsCallback)
+		callback(mapSize, snakeSpeed);
+}
+
+void Event::SetSetOptionsEvent(std::function<void(int, int)> callback)
+{
+	setOptionsCallback.emplace_back(callback);
 }

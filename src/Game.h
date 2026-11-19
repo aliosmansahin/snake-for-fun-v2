@@ -44,4 +44,7 @@ private:
 
 private:
 	int score;
+
+private:
+	int snakeSpeed;
 };

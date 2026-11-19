@@ -8,10 +8,8 @@
 Game::Game()
 {
 	shader = std::make_shared<Shader>();
-	squareCount = 20;
-	squareSize = 640 / squareCount;
-	square = std::make_shared<Square>(squareSize);
 	score = 0;
+	snakeSpeed = 0.1;
 
 	Event::SetStartGameEvent([&]() {
 		currentGameState = std::make_shared<PlayingState>();
@@ -20,7 +18,7 @@ Game::Game()
 
 	Event::SetGameOverEvent([&]() {
 		currentGameState = std::make_shared<GameOverState>();
-		snake = std::make_shared<Snake>(squareCount);
+		snake = std::make_shared<Snake>(squareCount, snakeSpeed);
 		apple = std::make_shared<Apple>(Coord{ 5, 5 });
 		});
 
@@ -30,6 +28,23 @@ Game::Game()
 
 		Event::AddScoreEvent(++score);
 		});
+
+	Event::SetUpdateMapSizeEvent([&](int mapSize) {
+		squareCount = mapSize;
+		squareSize = 640 / squareCount;
+		square = std::make_shared<Square>(squareSize);
+		});
+
+	Event::SetUpdateSnakeSpeedEvent([&](int snakeSpeed) {
+		this->snakeSpeed = snakeSpeed;
+		});
+
+	Event::SetSetOptionsEvent([](int mapSize, int snakeSpeed) {
+		Event::UpdateMapSizeEvent(mapSize);
+		Event::UpdateSnakeSpeedEvent(snakeSpeed);
+		});
+
+	Event::SetOptionsEvent(20, 5);
 
 	Event::GameOverEvent(); // Start with gameover
 }

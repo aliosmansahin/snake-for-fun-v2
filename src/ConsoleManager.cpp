@@ -35,6 +35,13 @@ ConsoleManager::ConsoleManager()
 			});
 		t.detach();
 		});
+
+	Event::SetSetOptionsEvent([&](int mapSize, int snakeSpeed) {
+		std::lock_guard<std::mutex> lock(consoleMutex);
+
+		mapSizeToShow = mapSize;
+		snakeSpeedToShow = snakeSpeed;
+		});
 }
 
 void ConsoleManager::ShowMainMenu()
@@ -127,13 +134,13 @@ void ConsoleManager::ShowOptionsMenu()
 		}
 		else if (input == 2) {
 			int input = ReadInput<int>("Enter Snake Speed", "Between 1 - 10... or 999", [](int test) {
-				if (test < 20 || test > 128)
-					return false;
+				if (test == 999)
+					return true;
 
-				if (640 % test != 0) //TODO: hardcoded
-					return false;
+				if (test >= 1 && test <= 10)
+					return true;
 
-				return true;
+				return false;
 				});
 
 			snakeSpeedToShow = input;

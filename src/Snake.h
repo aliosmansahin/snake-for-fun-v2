@@ -12,7 +12,7 @@
 
 class Snake {
 public:
-	Snake(int squareCount);
+	Snake(int squareCount, int snakeSpeed);
 	~Snake();
 
 public:
@@ -20,6 +20,9 @@ public:
 	void Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader);
 
 	void AddTail() { maxTail++; }
+
+private:
+	void SetSpeed(int snakeSpeed);
 
 public:
 	const Coord& GetHead() const { return head; }

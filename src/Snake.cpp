@@ -2,11 +2,11 @@
 
 #include "Event.h"
 
-Snake::Snake(int squareCount)
+Snake::Snake(int squareCount, int snakeSpeed)
 {
 	/* Set initial values - reset snake */
 	this->squareCount = squareCount;
-	moveCooldown = 0.1;
+	SetSpeed(snakeSpeed);
 	moveLastTime = 0.0;
 
 	head = Coord(12, 12, 0, squareCount - 1, 0, squareCount - 1);
@@ -69,4 +69,16 @@ void Snake::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Sha
 
 	/* Head */
 	square->Draw(head, 0.2f, 0.2f, 0.2f, shader);
+}
+
+void Snake::SetSpeed(int speed)
+{
+	/* Set move cooldown */
+
+	if (speed == 999) {
+		moveCooldown = 0.0001; // Speed, I am speed
+		return;
+	}
+
+	moveCooldown = static_cast<double>(11 - speed) / 100.0;
 }
