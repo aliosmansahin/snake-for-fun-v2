@@ -1,9 +1,10 @@
 #pragma once
 
 #include <functional>
-#include <unordered_set>
+#include <vector>
 
-typedef std::vector<std::function<void()>> CallbackList;
+template<typename... Args>
+using CallbackList = std::vector<std::function<void(Args...)>>;
 
 class Event {
 public:
@@ -19,8 +20,13 @@ public:
 
 	static void SetAppleBiteEvent(std::function<void()> callback);
 
+	static void AddScoreEvent(int newScore);
+
+	static void SetAddScoreEvent(std::function<void(int)> callback);
+
 public:
-	static CallbackList startGameCallback;
-	static CallbackList gameOverCallback;
-	static CallbackList appleBiteCallback;
+	static CallbackList<> startGameCallback;
+	static CallbackList<> gameOverCallback;
+	static CallbackList<> appleBiteCallback;
+	static CallbackList<int> addScoreCallback; // Has score parameter
 };

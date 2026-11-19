@@ -11,9 +11,11 @@ Game::Game()
 	squareCount = 20;
 	squareSize = 640 / squareCount;
 	square = std::make_shared<Square>(squareSize);
+	score = 0;
 
 	Event::SetStartGameEvent([&]() {
 		currentGameState = std::make_shared<PlayingState>();
+		score = 0;
 		});
 
 	Event::SetGameOverEvent([&]() {
@@ -25,6 +27,8 @@ Game::Game()
 	Event::SetAppleBiteEvent([&]() {
 		apple = std::make_shared<Apple>(squareCount, snake->GetTail());
 		snake->AddTail();
+
+		Event::AddScoreEvent(++score);
 		});
 
 	Event::GameOverEvent(); // Start with gameover

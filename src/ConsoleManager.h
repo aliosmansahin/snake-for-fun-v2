@@ -3,6 +3,9 @@
 #include <iostream>
 #include <functional>
 #include <mutex>
+#include <ios>
+#include <limits>
+#include <string>
 
 class ConsoleManager {
 public:
@@ -10,8 +13,13 @@ public:
 
 public:
 	void ShowMainMenu();
+	void ShowPlayingMenu();
+	void ShowGameOverMenu();
 
 	void Clear();
+
+public:
+	void SetScore(int newScore) { scoreToShow = newScore; }
 	
 public:
 	/* The rule callback is to test got user input, if it returns false, the method will get a new input */
@@ -50,4 +58,7 @@ public:
 	
 private:
 	std::mutex consoleMutex;
+
+private:
+	int scoreToShow;
 };

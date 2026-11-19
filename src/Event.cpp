@@ -1,8 +1,9 @@
 #include "Event.h"
 
-CallbackList Event::startGameCallback = {};
-CallbackList Event::gameOverCallback = {};
-CallbackList Event::appleBiteCallback  = {};
+CallbackList<> Event::startGameCallback   = {};
+CallbackList<> Event::gameOverCallback    = {};
+CallbackList<> Event::appleBiteCallback   = {};
+CallbackList<int> Event::addScoreCallback = {};
 
 void Event::StartGameEvent()
 {
@@ -35,4 +36,16 @@ void Event::AppleBiteEvent()
 void Event::SetAppleBiteEvent(std::function<void()> callback)
 {
 	appleBiteCallback.emplace_back(callback);
+}
+
+void Event::AddScoreEvent(int newScore)
+{
+	for (const auto& callback : addScoreCallback)
+		callback(newScore);
+}
+
+/* Invoked after the score has been increased */
+void Event::SetAddScoreEvent(std::function<void(int)> callback)
+{
+	addScoreCallback.emplace_back(callback);
 }

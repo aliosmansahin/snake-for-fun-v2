@@ -41,4 +41,7 @@ private:
 private:
 	int squareCount;
 	int squareSize;
+
+private:
+	int score;
 };
