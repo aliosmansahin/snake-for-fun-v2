@@ -4,6 +4,8 @@ CallbackList<> Event::startGameCallback   = {};
 CallbackList<> Event::gameOverCallback    = {};
 CallbackList<> Event::appleBiteCallback   = {};
 CallbackList<int> Event::addScoreCallback = {};
+CallbackList<int> Event::updateMapSizeCallback = {};
+CallbackList<int> Event::updateSnakeSpeedCallback = {};
 
 void Event::StartGameEvent()
 {
@@ -22,6 +24,7 @@ void Event::GameOverEvent()
 		callback();
 }
 
+/* Invoked when game is over or initial menu */
 void Event::SetGameOverEvent(std::function<void()> callback)
 {
 	gameOverCallback.emplace_back(callback);
@@ -48,4 +51,26 @@ void Event::AddScoreEvent(int newScore)
 void Event::SetAddScoreEvent(std::function<void(int)> callback)
 {
 	addScoreCallback.emplace_back(callback);
+}
+
+void Event::UpdateMapSizeEvent(int newMapSize)
+{
+	for (const auto& callback : updateMapSizeCallback)
+		callback(newMapSize);
+}
+
+void Event::SetUpdateMapSizeEvent(std::function<void(int)> callback)
+{
+	updateMapSizeCallback.emplace_back(callback);
+}
+
+void Event::UpdateSnakeSpeedEvent(int newSnakeSpeed)
+{
+	for (const auto& callback : updateSnakeSpeedCallback)
+		callback(newSnakeSpeed);
+}
+
+void Event::SetUpdateSnakeSpeedEvent(std::function<void(int)> callback)
+{
+	updateSnakeSpeedCallback.emplace_back(callback);
 }

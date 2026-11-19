@@ -3,6 +3,7 @@
 #include "Event.h"
 
 #include <thread>
+#include <sstream>
 
 ConsoleManager::ConsoleManager()
 {
@@ -51,6 +52,9 @@ void ConsoleManager::ShowMainMenu()
 	if (input == 1) {
 		Event::StartGameEvent();
 	}
+	else if (input == 2) {
+		ShowOptionsMenu();
+	}
 }
 
 void ConsoleManager::ShowPlayingMenu()
@@ -81,6 +85,61 @@ void ConsoleManager::ShowGameOverMenu()
 	if (input == 1) {
 		Event::StartGameEvent();
 	}
+	else if (input == 2) {
+		ShowOptionsMenu();
+	}
+}
+
+void ConsoleManager::ShowOptionsMenu()
+{
+	do {
+
+		Clear();
+
+		std::cout << "***** Options *****" << std::endl;
+
+		std::cout << "Select options to modify: (current), or Back - 0" << std::endl;
+
+		std::ostringstream oss;
+		oss << "Map Size " << "(" << mapSizeToShow << ") - 1" << ", " << "Snake Speed " << "(" << snakeSpeedToShow << ") - 2";
+
+		int input = ReadInput<int>("Enter", oss.str(), [](int test) {
+			return (test == 0 || test == 1 || test == 2);
+			});
+
+		if (input == 0) {
+			Event::GameOverEvent(); // To trigger game to start all entities from scratch, also returns the main menu
+			break;
+		}
+		else if (input == 1) {
+			int input = ReadInput<int>("Enter Map Size", "Between 20 - 128 and must divide 640", [](int test) {
+				if (test < 20 || test > 128)
+					return false;
+
+				if (640 % test != 0) //TODO: hardcoded
+					return false;
+
+				return true;
+				});
+
+			mapSizeToShow = input;
+			Event::UpdateMapSizeEvent(input);
+		}
+		else if (input == 2) {
+			int input = ReadInput<int>("Enter Snake Speed", "Between 1 - 10... or 999", [](int test) {
+				if (test < 20 || test > 128)
+					return false;
+
+				if (640 % test != 0) //TODO: hardcoded
+					return false;
+
+				return true;
+				});
+
+			snakeSpeedToShow = input;
+			Event::UpdateSnakeSpeedEvent(input);
+		}
+	} while (true);
 }
 
 void ConsoleManager::Clear()

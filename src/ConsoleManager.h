@@ -15,6 +15,7 @@ public:
 	void ShowMainMenu();
 	void ShowPlayingMenu();
 	void ShowGameOverMenu();
+	void ShowOptionsMenu();
 
 	void Clear();
 
@@ -61,4 +62,6 @@ private:
 
 private:
 	int scoreToShow;
+	int mapSizeToShow;
+	int snakeSpeedToShow;
 };

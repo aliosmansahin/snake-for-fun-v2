@@ -24,9 +24,19 @@ public:
 
 	static void SetAddScoreEvent(std::function<void(int)> callback);
 
+	static void UpdateMapSizeEvent(int newMapSize);
+
+	static void SetUpdateMapSizeEvent(std::function<void(int)> callback);
+
+	static void UpdateSnakeSpeedEvent(int newSnakeSpeed);
+
+	static void SetUpdateSnakeSpeedEvent(std::function<void(int)> callback);
+
 public:
 	static CallbackList<> startGameCallback;
 	static CallbackList<> gameOverCallback;
 	static CallbackList<> appleBiteCallback;
 	static CallbackList<int> addScoreCallback; // Has score parameter
+	static CallbackList<int> updateMapSizeCallback; // Has map size parameter
+	static CallbackList<int> updateSnakeSpeedCallback; // Has snake speed parameter
 };
