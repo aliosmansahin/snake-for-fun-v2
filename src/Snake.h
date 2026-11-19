@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <deque>
 #include <memory>
 #include <unordered_set>
 #include <string>
@@ -9,16 +9,7 @@
 #include "Square.h"
 #include "Window.h"
 
-struct Coord {
-	int x, y;
-};
-
-enum class Direction {
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-};
+#include "Util.h"
 
 class Snake {
 public:
@@ -33,12 +24,13 @@ public:
 	void AddTail() { maxTail++; }
 
 public:
-	int GetX() { return head.x; }
-	int GetY() { return head.y; }
+	const Coord& GetHead() const { return head; }
+	const std::unordered_set<Coord>& GetTail() const { return tailForCheck; }
+
 
 private:
-	std::vector<Coord> tail; // Head is included
-	std::unordered_set<std::string> tailForCheck; // Head is not included
+	std::deque<Coord> tail; // For push front, pop back, head is not included
+	std::unordered_set<Coord> tailForCheck; // Head is not included
 	Coord head;
 	Direction direction;
 	int maxTail;

@@ -2,30 +2,28 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <string>
 
-Apple::Apple(int squareCount)
+Apple::Apple(int squareCount, const std::unordered_set<Coord>& notAllowed)
 {
 	std::srand(std::time(nullptr));
 
-	this->x = std::rand() % squareCount;
-	this->y = std::rand() % squareCount;
+	do {
+		coord = Coord(std::rand() % squareCount, std::rand() % squareCount);
+	} while (notAllowed.find(coord) != notAllowed.end());
 }
 
-Apple::Apple(int x, int y)
+Apple::Apple(Coord coord)
 {
-	Reset(x, y);
+	Reset(coord);
 }
-
-Apple::~Apple()
-{}
 
 void Apple::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader)
 {
-	square->Draw(x, y, 0.7, 0.1, 0.1, shader);
+	square->Draw(coord, 0.7, 0.1, 0.1, shader);
 }
 
-void Apple::Reset(int x, int y)
+void Apple::Reset(Coord coord)
 {
-	this->x = x;
-	this->y = y;
+	this->coord = coord;
 }

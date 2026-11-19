@@ -40,26 +40,26 @@ Square::~Square()
 }
 
 /*
-    x, y: in-tile coordinates
+    coord: in-tile coordinates
     r, g, b: 0 -> 1 colors
 */
-void Square::Draw(int x, int y, float r, float g, float b, std::shared_ptr<Shader> shader)
+void Square::Draw(const Coord& coord, float r, float g, float b, std::shared_ptr<Shader> shader)
 {
     glBindVertexArray(VAO);
 
-    UpdateTransformMatrix(x, y, shader);
+    UpdateTransformMatrix(coord, shader);
     UpdateColor(r, g, b, shader);
     
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void Square::UpdateTransformMatrix(int x, int y, std::shared_ptr<Shader> shader)
+void Square::UpdateTransformMatrix(const Coord& coord, std::shared_ptr<Shader> shader)
 {
     float modelMatrix[4][4] = {
            {static_cast<float>(squareSize), 0.0f,       0.0f, 0.0f},
            {0.0f,       static_cast<float>(squareSize), 0.0f, 0.0f},
            {0.0f,       0.0f,       1.0f, 0.0f},
-           {static_cast<float>(x * squareSize), static_cast<float>(y * squareSize), 0.0f, 1.0f},
+           {static_cast<float>(coord.GetX() * squareSize), static_cast<float>(coord.GetY() * squareSize), 0.0f, 1.0f},
     };
 
     shader->SetModelMatrix(modelMatrix);

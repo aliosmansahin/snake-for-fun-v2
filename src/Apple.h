@@ -1,25 +1,27 @@
 #pragma once
 
 #include <memory>
+#include <unordered_set>
 
 #include "Square.h"
 #include "Shader.h"
 
+#include "Util.h"
+
 class Apple {
 public:
-	Apple(int squareCount); // Randomly
-	Apple(int x, int y);
-	~Apple();
+	Apple(int squareCount, const std::unordered_set<Coord>& notAllowed); // Randomly
+	Apple(Coord coord);
+	~Apple() = default;
 
 public:
 	void Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader);
 
-	void Reset(int x, int y);
+	void Reset(Coord coord);
 
 public:
-	int GetX() { return x; }
-	int GetY() { return y; }
+	const Coord& GetCoord() const { return coord; }
 
 private:
-	int x, y;
+	Coord coord;
 };

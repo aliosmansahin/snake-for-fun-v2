@@ -4,6 +4,8 @@
 
 #include "Shader.h"
 
+#include "Util.h"
+
 #include <memory>
 
 class Square {
@@ -12,10 +14,10 @@ public:
 	~Square();
 
 public:
-	void Draw(int x, int y, float r, float g, float b, std::shared_ptr<Shader> shader);
+	void Draw(const Coord& coord, float r, float g, float b, std::shared_ptr<Shader> shader);
 
 private:
-	void UpdateTransformMatrix(int x, int y, const std::shared_ptr<Shader> shader);
+	void UpdateTransformMatrix(const Coord& coord, const std::shared_ptr<Shader> shader);
 	void UpdateColor(float r, float g, float b, const std::shared_ptr<Shader> shader);
 
 private:

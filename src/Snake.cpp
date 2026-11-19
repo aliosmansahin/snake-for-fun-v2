@@ -38,62 +38,38 @@ void Snake::Update(const Window& window)
 
 	Coord oldHead = head;
 
-	switch (direction) {
-	case Direction::LEFT:
-		head.x--;
-		break;
-	case Direction::RIGHT:
-		head.x++;
-		break;
-	case Direction::UP:
-		head.y--;
-		break;
-	case Direction::DOWN:
-		head.y++;
-		break;
-	}
+	head.Move(direction);
 
-	if (head.x < 0)
-		head.x = squareCount - 1;
-	else if (head.x > squareCount - 1)
-		head.x = 0;
-	else if (head.y < 0)
-		head.y = squareCount - 1;
-	else if (head.y > squareCount - 1)
-		head.y = 0;
-
-	if (tailForCheck.find(std::to_string(head.x) + "-" + std::to_string(head.y)) != tailForCheck.end()) {
+	if (tailForCheck.find(head) != tailForCheck.end()) {
 		Event::GameOverEvent();
 		return;
 	}
 
-	tailForCheck.insert(std::to_string(oldHead.x) + "-" + std::to_string(oldHead.y));
-	tail.push_back(oldHead);
+	tailForCheck.insert(oldHead);
+	tail.push_front(oldHead);
 
 	if (tail.size() > maxTail) {
-		Coord last = tail[0];
-		tailForCheck.erase(std::to_string(last.x) + "-" + std::to_string(last.y));
-		tail.erase(tail.begin());
+		Coord& coord = tail.back();
+		tailForCheck.erase(coord);
+		tail.pop_back();
 	}
 }
 
 void Snake::Draw(const std::shared_ptr<Square> square, const std::shared_ptr<Shader> shader)
 {
-	for (int i = 0; i < tail.size(); ++i) {
-		auto sq = tail[i];
-		square->Draw(sq.x, sq.y, 0.1f, 0.1f, 0.1f, shader);
+	for (const auto& sq : tail) {
+		square->Draw(sq, 0.1f, 0.1f, 0.1f, shader);
 	}
 
 	/* Head */
-	square->Draw(head.x, head.y, 0.2f, 0.2f, 0.2f, shader);
+	square->Draw(head, 0.2f, 0.2f, 0.2f, shader);
 }
 
 void Snake::Reset()
 {
-	head = { 12, 12 };
-	maxTail = 5;
+	head = Coord(12, 12, 0, squareCount - 1, 0, squareCount - 1);
+	maxTail = 4;
 	direction = Direction::RIGHT;
 	directionBuffer = Direction::RIGHT;
 	tail.clear();
-	tailForCheck.clear();
 }

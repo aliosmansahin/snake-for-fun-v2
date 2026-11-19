@@ -12,7 +12,7 @@ Game::Game()
 	squareCount = 20;
 	squareSize = 640 / squareCount;
 	snake = std::make_shared<Snake>(squareCount);
-	apple = std::make_shared<Apple>(5, 5);
+	apple = std::make_shared<Apple>(Coord{ 5, 5 });
 
 	square = std::make_shared<Square>(squareSize);
 
@@ -25,7 +25,7 @@ Game::Game()
 		});
 
 	Event::SetAppleBiteEvent([&]() {
-		apple = std::make_shared<Apple>(squareCount);
+		apple = std::make_shared<Apple>(squareCount, snake->GetTail());
 		snake->AddTail();
 		});
 }
@@ -100,7 +100,7 @@ void Game::DrawTiles()
 				b = 0.4f;
 			}
 
-			square->Draw(x, y, r, g, b, shader);
+			square->Draw({x, y}, r, g, b, shader);
 		}
 	}
 }

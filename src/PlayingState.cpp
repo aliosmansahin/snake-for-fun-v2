@@ -6,7 +6,6 @@ void PlayingState::Update(const Window& window, GameObjects gameObjects)
 {
 	gameObjects.snake->Update(window);
 
-	if (gameObjects.snake->GetX() == gameObjects.apple->GetX() &&
-		gameObjects.snake->GetY() == gameObjects.apple->GetY())
+	if (gameObjects.snake->GetHead() == gameObjects.apple->GetCoord())
 		Event::AppleBiteEvent();
 }
