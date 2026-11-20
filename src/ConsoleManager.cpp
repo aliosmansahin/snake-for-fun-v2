@@ -36,6 +36,20 @@ ConsoleManager::ConsoleManager()
 		t.detach();
 		});
 
+	Event::SetPauseGameEvent([&]() {
+		std::thread t([&]() {
+			ShowPauseMenu();
+			});
+		t.detach();
+		});
+
+	Event::SetResumeGameEvent([&]() {
+		std::thread t([&]() {
+			ShowPlayingMenu();
+			});
+		t.detach();
+		});
+
 	Event::SetSetOptionsEvent([&](int mapSize, int snakeSpeed) {
 		std::lock_guard<std::mutex> lock(consoleMutex);
 
@@ -72,7 +86,9 @@ void ConsoleManager::ShowPlayingMenu()
 
 	std::cout << "***** In Play *****" << std::endl;
 
-	std::cout << "Score: " << scoreToShow;
+	std::cout << "Score: " << scoreToShow << std::endl;
+	
+	std::cout << "ESC (while focused to game window) - Pause Game" << std::endl;
 }
 
 void ConsoleManager::ShowGameOverMenu()
@@ -147,6 +163,28 @@ void ConsoleManager::ShowOptionsMenu()
 			Event::UpdateSnakeSpeedEvent(input);
 		}
 	} while (true);
+}
+
+void ConsoleManager::ShowPauseMenu()
+{
+	std::lock_guard<std::mutex> lock(consoleMutex);
+
+	Clear();
+
+	std::cout << "***** Game Paused *****" << std::endl;
+
+	std::cout << "Score: " << scoreToShow << std::endl;
+
+	int input = ReadInput<int>("Enter", "Resume - 1, Quit to Menu - 2", [](int test) {
+		return (test == 1 || test == 2);
+		});
+
+	if (input == 1) {
+		Event::ResumeGameEvent();
+	}
+	else if (input == 2) {
+		Event::GameOverEvent();
+	}
 }
 
 void ConsoleManager::Clear()

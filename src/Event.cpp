@@ -7,6 +7,8 @@ CallbackList<int> Event::addScoreCallback = {};
 CallbackList<int> Event::updateMapSizeCallback = {};
 CallbackList<int> Event::updateSnakeSpeedCallback = {};
 CallbackList<int, int> Event::setOptionsCallback = {};
+CallbackList<> Event::pauseGameCallback = {};
+CallbackList<> Event::resumeGameCallback = {};
 
 void Event::StartGameEvent()
 {
@@ -85,4 +87,26 @@ void Event::SetOptionsEvent(int mapSize, int snakeSpeed)
 void Event::SetSetOptionsEvent(std::function<void(int, int)> callback)
 {
 	setOptionsCallback.emplace_back(callback);
+}
+
+void Event::PauseGameEvent()
+{
+	for (const auto& callback : pauseGameCallback)
+		callback();
+}
+
+void Event::SetPauseGameEvent(std::function<void()> callback)
+{
+	pauseGameCallback.emplace_back(callback);
+}
+
+void Event::ResumeGameEvent()
+{
+	for (const auto& callback : resumeGameCallback)
+		callback();
+}
+
+void Event::SetResumeGameEvent(std::function<void()> callback)
+{
+	resumeGameCallback.emplace_back(callback);
 }

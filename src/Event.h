@@ -36,6 +36,14 @@ public:
 
 	static void SetSetOptionsEvent(std::function<void(int, int)> callback);
 
+	static void PauseGameEvent();
+
+	static void SetPauseGameEvent(std::function<void()> callback);
+
+	static void ResumeGameEvent();
+
+	static void SetResumeGameEvent(std::function<void()> callback);
+
 public:
 	static CallbackList<> startGameCallback;
 	static CallbackList<> gameOverCallback;
@@ -44,4 +52,6 @@ public:
 	static CallbackList<int> updateMapSizeCallback; // Has map size parameter
 	static CallbackList<int> updateSnakeSpeedCallback; // Has snake speed parameter
 	static CallbackList<int, int> setOptionsCallback; // Has options to assign directly
+	static CallbackList<> pauseGameCallback;
+	static CallbackList<> resumeGameCallback;
 };

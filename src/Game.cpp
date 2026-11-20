@@ -10,9 +10,11 @@ Game::Game()
 	shader = std::make_shared<Shader>();
 	score = 0;
 	snakeSpeed = 0.1;
+	gamePaused = true;
 
 	Event::SetStartGameEvent([&]() {
 		currentGameState = std::make_shared<PlayingState>();
+		gamePaused = false;
 		score = 0;
 		});
 
@@ -20,6 +22,7 @@ Game::Game()
 		currentGameState = std::make_shared<GameOverState>();
 		snake = std::make_shared<Snake>(squareCount, snakeSpeed);
 		apple = std::make_shared<Apple>(Coord{ 5, 5 });
+		gamePaused = true;
 		});
 
 	Event::SetAppleBiteEvent([&]() {
@@ -42,6 +45,14 @@ Game::Game()
 	Event::SetSetOptionsEvent([](int mapSize, int snakeSpeed) {
 		Event::UpdateMapSizeEvent(mapSize);
 		Event::UpdateSnakeSpeedEvent(snakeSpeed);
+		});
+
+	Event::SetPauseGameEvent([&]() {
+		gamePaused = true;
+		});
+
+	Event::SetResumeGameEvent([&]() {
+		gamePaused = false;
 		});
 
 	Event::SetOptionsEvent(20, 5);
@@ -68,7 +79,8 @@ void Game::Run(const Window& window, const ConsoleManager& console)
 
 void Game::Update(const Window& window)
 {
-	currentGameState->Update(window, {snake, apple});
+	if(!gamePaused)
+		currentGameState->Update(window, {snake, apple});
 }
 
 void Game::Draw()

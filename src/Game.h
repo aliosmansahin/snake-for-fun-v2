@@ -47,4 +47,7 @@ private:
 
 private:
 	int snakeSpeed;
+
+private:
+	bool gamePaused;
 };

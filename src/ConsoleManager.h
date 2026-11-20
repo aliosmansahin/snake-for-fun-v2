@@ -16,6 +16,7 @@ public:
 	void ShowPlayingMenu();
 	void ShowGameOverMenu();
 	void ShowOptionsMenu();
+	void ShowPauseMenu();
 
 	void Clear();
 

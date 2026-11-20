@@ -8,4 +8,8 @@ void PlayingState::Update(const Window& window, GameObjects gameObjects)
 
 	if (gameObjects.snake->GetHead() == gameObjects.apple->GetCoord())
 		Event::AppleBiteEvent();
+
+	if (window.CheckKey(GLFW_KEY_ESCAPE)) {
+		Event::PauseGameEvent();
+	}
 }
