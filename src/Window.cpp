@@ -7,6 +7,8 @@ Window::Window()
 	if (!glfwInit())
 		throw std::runtime_error("glfw initialization failure");
 
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
 	window = glfwCreateWindow(640, 640, "Snake Game", NULL, NULL);
 
 	if (!window)
